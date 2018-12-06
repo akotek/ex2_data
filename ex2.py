@@ -1,12 +1,24 @@
+import json, pandas, os
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn import datasets
+
+# -------------------
+# Code for ex2 in data science course:
+# Part1 is data generation while Part2 is running a clustering algorithm:
+# -------------------
+
+
+# Code from here belongs to part 1 of the eX:
+# -------------------
+# Generation of synthetic data of:
+# Uniform dist, gaussian dist, circle in a ring dist and letters dist.
+# -------------
 
 # Constants
 # -------------
 AMOUNT = 100
 # -------------
-
 
 def gen_uniform_dist(low, high):
     x = np.random.uniform(low[0], low[1], AMOUNT)
@@ -56,5 +68,21 @@ def q3():
     # ------------------- 3.e
     x5, y5 = gen_first_letters()
     # plot (x5, y5)
+
+
+# Code from here belongs to part 2 of the eX:
+# -------------------
+# Performing an hierarchical clustering of one-dim set of points
+# from a json file,
+# We'll be using pandas && json packages for parsing and analysing:
+# -------------------
+
+def relpath(filename):
+    return os.path.join(os.path.dirname(__file__), filename)
+
+
+def q4():
+    data = json.loads(relpath("ex1.json"))
+
 
 q3()
