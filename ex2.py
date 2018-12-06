@@ -4,7 +4,7 @@ from sklearn import datasets
 
 # Constants
 # -------------
-AMOUNT = 300
+AMOUNT = 100
 # -------------
 
 
@@ -21,8 +21,9 @@ def gen_gaussian_dist(mu, sigma):
     return pts_arr[:, 0], pts_arr[:, 1]
 
 
-def gen_circle_inside_ring():
-    datasets.make_circles()
+def gen_circle_inside_ring(amount):
+    x, y = datasets.make_circles(n_samples=amount, factor=0.4)
+    return x[:, 0], x[:, 1]
 
 
 def gen_first_letters():
@@ -38,22 +39,22 @@ def plot(x, y):
 
 
 def q3():
-    # -------------------
-    # 3.a:
+    # ------------------- 3.a
     x1, y1 = gen_uniform_dist([-1, 1], [0, 5])
     # plot(x1, y1)
-    # -------------------
-    # 3.b
+    # ------------------- 3.b
     x2, y2 = gen_gaussian_dist(([1, 1]), np.array([[4, 0], [0, 4]]))  # COV is diagonal (4,0,0,4)
-    plot(x2, y2)
-    # -------------------
-    # 3.c
+    # plot(x2, y2)
+    # ------------------- 3.c
     # np.array of [ [x1],[y1], [x2],[y2], .... ]
     # we'll merge even/odd rows and get merged X and merged Y arrays and plot:
     gauss_merged = np.concatenate([gen_gaussian_dist(([i, -i]), ([[2 * i, 0], [0, 2 * i]])) for i in range(1, 4)])
     x3, y3 = np.concatenate(gauss_merged[::2]), np.concatenate(gauss_merged[1::2,:])
-    plot(x3, y3)
-    # -------------------
-    # 3.d
+    # plot(x3, y3)
+    # ------------------- 3.d
+    x4, y4 = gen_circle_inside_ring(AMOUNT)
+    # plot(x4, y4)
+    # ------------------- 3.e
+
 
 q3()
