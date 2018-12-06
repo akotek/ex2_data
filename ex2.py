@@ -9,8 +9,6 @@ AMOUNT = 100
 
 
 def gen_uniform_dist(low, high):
-    # Returns a np.array([...]) of uniformly 2D
-    # distributed elements from [low] to [high]:
     x = np.random.uniform(low[0], low[1], AMOUNT)
     y = np.random.uniform(high[0], high[1], AMOUNT)
     return x, y
@@ -21,14 +19,15 @@ def gen_gaussian_dist(mu, sigma):
     return pts_arr[:, 0], pts_arr[:, 1]
 
 
-def gen_circle_inside_ring(amount):
-    x, y = datasets.make_circles(n_samples=amount, factor=0.4)
+def gen_circle_inside_ring():
+    x, y = datasets.make_circles(n_samples=AMOUNT, factor=0.4)
     return x[:, 0], x[:, 1]
 
 
 def gen_first_letters():
     # Generates 2d points that represent
     # letters of AK (Artiyum and Kotek):
+    #TODO complete
     pass
 
 
@@ -52,9 +51,10 @@ def q3():
     x3, y3 = np.concatenate(gauss_merged[::2]), np.concatenate(gauss_merged[1::2,:])
     # plot(x3, y3)
     # ------------------- 3.d
-    x4, y4 = gen_circle_inside_ring(AMOUNT)
+    x4, y4 = gen_circle_inside_ring()
     # plot(x4, y4)
     # ------------------- 3.e
-
+    x5, y5 = gen_first_letters()
+    # plot (x5, y5)
 
 q3()
