@@ -65,7 +65,7 @@ def gen_K_char():
 
 
 def gen_noise(size):
-    return 0.001 * np.random.rand(size)
+    return 3 * np.random.rand(size)
 
 
 def plot(x, y):
