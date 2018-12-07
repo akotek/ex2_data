@@ -1,5 +1,7 @@
-import json, pandas, os
 import numpy as np
+import json
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.cluster import AgglomerativeClustering
 from matplotlib import pyplot as plt
 from sklearn import datasets
 
@@ -16,7 +18,7 @@ from sklearn import datasets
 
 # Constants
 # -------------
-AMOUNT = 100
+AMOUNT = 300
 # -------------
 
 
@@ -43,7 +45,7 @@ def gen_first_letters():
 
 
 def gen_A_char():
-    #TODO complete
+    # TODO complete
     x, y = 1, 2
     return x, y
 
@@ -115,12 +117,43 @@ def q3():
 # ----------------------------------------------------------------------
 
 
-def relpath(filename):
-    return os.path.join(os.path.dirname(__file__), filename)
+# Constants
+# -------------
+DOLLAR = '$'
+
+
+# -------------
+
+
+def get_price_from_json(data):
+    price = []
+    for record in data['records']['record']:
+        if record['Currency'] == DOLLAR:
+            price.append(record['DolarsPelged'])
+            # print("id is: %s , price is %d" % (record['id'], record['DolarsPelged']))
+    return np.array(price)
+
+
+def expand_dim(x):
+    return np.column_stack((x, np.zeros(x.shape[0])))
 
 
 def q4():
-    data = json.loads(relpath("ex1.json"))
+    with open('ex1.json', encoding='utf-8') as data_file:
+        data = json.loads(data_file.read())
+        price = get_price_from_json(data)
+        price = expand_dim(price)  # algorithm works only on 2D space
+
+        x = []
+        y = []
+        Z = linkage(price, 'ward')
+        hc = AgglomerativeClustering(n_clusters=2, affinity='euclidean', linkage='ward')
+        hc.fit_predict(price)
+
+        i = 0
+        while True:
+            x.append(i)
+            i += 1
 
 
-q3()
+q4()
